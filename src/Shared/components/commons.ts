@@ -21,9 +21,7 @@ type StyledContainerProps = {
 };
 export const Container = styled.View<StyledContainerProps>`
     flexDirection: column;
-    
     justify-content: ${props => props.center ? 'center': 'flex-start'};
-    
     padding-right: 8px;
     padding-left: 8px;
 `
@@ -61,4 +59,18 @@ export const ImgIcon = styled.Image`
     width: 24px;
     height: 24px;
     resize-mode: contain;
+`
+export const RowModal = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-horizontal: 25px;
+    padding-bottom: 25px;
+    width: 100%;
+`
+export const ButtonTransparent = styled.TouchableOpacity`
+    position: absolute;
+    left: 16px;
+    top: -5px;
+    background-color: transparent;
 `

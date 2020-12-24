@@ -6,9 +6,11 @@ import { Label } from 'Shared/components/commons'
 import { colors } from 'shared/styles';
 
 
-export const SmsScreen = ({ navigation }) => {
+export const PasswordScreen = ({ navigation }) => {
     const [state, setState] = useState({
         heightLogo: 100,
+        pass: '',
+        confirmPass: ''
     })
     const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
 
@@ -19,7 +21,22 @@ export const SmsScreen = ({ navigation }) => {
             useNativeDriver: true
         }).start();
     }, []);
-    const goSms = () => {
+    const validateForm = () => {
+        if (state.pass === '') {
+            return false
+        }
+        if (state.confirmPass === '') {
+            return false
+        }
+        if (state.pass !== state.confirmPass) {
+            return false
+        }
+        if (state.pass.length < ) {
+            return false
+        }
+    }
+    const goPinCode = async () => {
+        let validation = await validateForm()
         navigation.navigate('CountryScreen')
     }
 
@@ -31,32 +48,33 @@ export const SmsScreen = ({ navigation }) => {
                     opacity: fadeAnim,
                 }}>
                 <LoginBox>
-                    <View style={{paddingBottom: 16,}}>
-                        <Label style={{textAlign: 'center'}} secondary>Enviamos un código SMS con 
-                        un código a</Label>
-                        <Label style={{ textAlign: 'center' }}>+52 1 3333 6789 2234</Label>
-                    </View>
                     <InputBox>
                         <InputText
                             isValid={state.status}
                             onChangeText={text => setState({ ...state, user: text })}
-                            value={state.user}
-                            keyboardType='number-pad'
+                            value={state.pass}
                             autoCapitalize='none'
-                            placeholder="Ingresa tu código"
+                            placeholder="Crear nueva contraseña"
                             placeholderTextColor={colors.lightGray}
-                            style={{ textAlign: 'center'}}
+                            style={{ textAlign: 'center' }}
+                            secureTextEntry
                         />
                     </InputBox>
-                    <Label style={{ textAlign: 'center' }}>El código es válido por 900 segundos </Label>
+                    <InputBox>
+                        <InputText
+                            isValid={state.status}
+                            onChangeText={text => setState({ ...state, user: text })}
+                            value={state.confirmPass}
+                            autoCapitalize='none'
+                            placeholder="Confirma la contraseña"
+                            placeholderTextColor={colors.lightGray}
+                            style={{ textAlign: 'center' }}
+                            secureTextEntry
+                        />
+                    </InputBox>
                 </LoginBox>
                 <ButtonBox>
-                    <Button isLoading={false} isActivated={true} onClick={goSms} secondary>
-                        Volver a enviar SMS
-                    </Button>
-                </ButtonBox>
-                <ButtonBox>
-                    <Button isLoading={false} isActivated={true} onClick={goSms}>
+                    <Button isLoading={false} isActivated={true} onClick={goPinCode}>
                         Continuar
                     </Button>
                 </ButtonBox>
